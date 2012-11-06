@@ -26,7 +26,7 @@
   </div>
   <div id="right-panel" style="min-height:300px;float:left;width:450px;border-left:1px solid #111111; padding-left:10px;">
     Login your first time to access your sensor board on your flyport
-    Learn how to configure your flyport to send online data from sensors, from the wiki <a href="#">Link to wiki for sending data</a>
+    Learn how to configure your flyport to send online data from sensors, from the wiki <a href="/index.php/default/help">Link to wiki for sending data</a>
   </div>
 </div>
 

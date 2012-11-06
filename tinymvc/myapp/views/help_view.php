@@ -31,7 +31,7 @@ Host: flymysensor.com
 User-Agent: MyUserAgent
 Content-Length: 123
 
-user=joxer&password=joxer&project=Greenhouse&apikey=123123&brightness=11
+user=help&password=help&project=Greenhouse&apikey=123123&brightness=11
 </pre>
 
 
