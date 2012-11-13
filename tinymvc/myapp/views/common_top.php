@@ -7,10 +7,10 @@
 
 <link media="all" href="/css/picus.css" rel="stylesheet" type="text/css">
 
-<link media="all" href="http://community.openpicus.com/sites/openpicus.com/files/css/css_Z_KQyXTcIGmFPRfGZOOTJ1xsEckXlqMhF53CkTgnOVA.css" rel="stylesheet" type="text/css">
-<link media="all" href="http://community.openpicus.com/sites/openpicus.com/files/css/css_-kNAITyxIbfLmSTdinZX96nXV_ItgikBQjqVRra5r7M.css" rel="stylesheet" type="text/css">
-<link media="all" href="http://community.openpicus.com/sites/openpicus.com/files/css/css_RMBRtBUm5Sp8co99h6td7n_pKaSr37nZsffdC7tu-GE.css" rel="stylesheet" type="text/css">
-<link media="all" href="http://community.openpicus.com/sites/openpicus.com/files/css/css__rdJ8_dlP9rwrYlxfRZ6RyeQA8T-1aFu5Ev1hRP4bOY.css" rel="stylesheet" type="text/css">
+<link media="all" href="/css/css_1.css" rel="stylesheet" type="text/css">
+<link media="all" href="/css/css_2.css" rel="stylesheet" type="text/css">
+<link media="all" href="/css/css_3.css" rel="stylesheet" type="text/css">
+<link media="all" href="/css/css_4.css" rel="stylesheet" type="text/css">
 </head>
 <body class="html not-front logged-in no-sidebars page-node page-node- page-node-25 node-type-static-pages i18n-en">
   <div id="skip-link">

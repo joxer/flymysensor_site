@@ -20,6 +20,11 @@ class Default_Controller extends TinyMVC_Controller
   function index()
   {
 
+  // CHECK IF DATABASE CONF EXIST
+  if(file_exists(getcwd()."/../tinymvc/sysfiles/configs/config_database.php") == FALSE){
+  	header("Location: /index.php/install/index");	
+
+  }else{
 
        if(  isset($_GET['error']) && $_GET['error'] == "true"){
         $this->view->assign("error","error login");
@@ -30,6 +35,7 @@ class Default_Controller extends TinyMVC_Controller
        }
 
       $this->view->display('index_view');
+   }
   }
 
   function access(){
