@@ -99,6 +99,24 @@ font-weight:bold;
 
 }
 
+#auth-div{
+border:2px solid #86B9FF;
+background-color: #E0E9FF;
+padding:10px;
+font-size:16px;
+font-weight:bold;
+
+}
+
+#not-auth-div{
+border:2px solid #9a9a9a;
+background-color: #ebebeb;
+padding:10px;
+font-size:16px;
+font-weight:bold;
+}
+
+
 #help-text{
 
     display:none;
@@ -120,4 +138,50 @@ font-weight:bold;
 
 height:75px;
 width:220px;
+}
+
+.evernote-link{
+
+background-color: #FADB9C;
+padding-top:50px;
+padding-bottom:50px;
+padding-left:110px;
+padding-right:110px;
+margin-top:25px;
+border:2px solid #DAAB6C;
+text-align:center;
+}
+
+.evernote-auth-a{
+
+font-size:25px;
+
+}
+
+#evernote-auth-a:hover{
+
+text-decoration:underline;
+font-size:25px;
+
+}
+
+#addthis_toolbar{
+
+padding-top:25px;
+
+}
+
+#info-text-everpicus{
+    margin-top:25px;
+    border: 2px solid #86B9FF;
+    background-color:#E0E9FF;
+    font-size:1em;
+    padding:15px;
+}
+
+.title{
+
+    font-size:2em;
+    font-weight:bold;
+    margin-bottom:10px;
 }

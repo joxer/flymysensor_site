@@ -1,15 +1,65 @@
+<% if @object_image.value != "" %>
+   <meta property="og:title" content="Everpicus image" /> 
+   <meta property="og:description" content="See this image" />  
+   <meta property="og:image" content="<%= request.base_url%>/get_image_everpicus?user=<%=session[:user]%>" /> 
+<% end %>
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-5097a63e6c14c16f"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+
 
 <div id="content" class="contextual-links-region">
   <div id="left-panel" style="float:left;width:450px;">
+       <% if @object_image.value == "" %>
 
-  <img src="data:image/jpeg;base64,<?= $values[0]['value']?>"/>
+       You don't have any image stored
+
+       <% else %>
+
+       <img src="data:image/jpg;base64,<%= @object_image.value %>" />
+
+       <% end %>
   </div>
-  
   <div id="right-panel" style="min-height:300px;float:left;width:450px;border-left:1px solid #111111; padding-left:10px;">
-      There's your bonsai. The values in the box are the ones reported by your flyport. On the left you can see 3 boxes. They correspond to brightness, humidity and temperature, if they are clear values are too much high and your bonsai could die.
 
+<% if @object_login.value == "" %>
+<div id="not-auth-div">You are still not authenticated</div>
+<p>Authorize your account for first time:</p>
+<div class="evernote-link"><a class="evernote-auth-a" href="/evernote/authorize">Authorize</a></div>
+<% else %>
 
-      
+<div id="auth-div">You are authenticated!</div>
+<br>
+<% if @object_login.value == "" %>
+<div class="evernote-link"><a class="evernote-auth-a" href="/evernote/authorize">Authorize</a></div>
+<% else %>
+<div class="evernote-link"><a class="evernote-auth-a" href="/evernote/authorize">Authorize Again</a></div>
+<% end %>
+<!-- AddThis Button BEGIN -->
+<div id="addthis_toolbar" class="addthis_toolbox addthis_default_style addthis_32x32_style">
+  <a class="addthis_button_facebook"></a>
+  <a class="addthis_button_twitter"></a>
+  <a class="addthis_button_gmail"></a>
+  <a class="addthis_button_email"></a>
+  <a class="addthis_button_compact"></a>
+  <a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5097a63e6c14c16f"></script>
+<!-- AddThis Button END -->
+<!--<div class="evernote-link"><a class="evernote-auth-a" href="/evernote/authorize">Share</a></div>-->
+<div id="info-text-everpicus" >
+<div class="title">
+Info
+</div>
+On the left you can see the last image uploaded by the flyport. Above there is your authentication with the evernote server. Each time the flyport send a request to server, it will send it to evernote
+</div>
+
+<% end %>
 
 <!-- <div class="set_values">
 

@@ -1,0 +1,8 @@
+source 'https://rubygems.org'
+
+gem 'sinatra'
+gem 'sinatra-assetpack'
+gem 'data_mapper'
+gem 'oauth'
+gem 'dm-mysql-adapter'
+gem 'evernote_oauth'
