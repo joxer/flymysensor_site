@@ -3,7 +3,7 @@ require 'data_mapper'
 
 
 DataMapper::Logger.new($stdout, :fatal)
-DataMapper.setup(:default, 'sqlite://root:root@localhost/picus')
+DataMapper.setup :default, "sqlite://#{Dir.pwd}/database.db"  
 def with_dm_logger(level = :debug)
   DataMapper.logger.level = DataMapper::Logger::Levels[level]
   yield
