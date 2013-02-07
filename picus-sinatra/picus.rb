@@ -46,19 +46,75 @@ class Picus < Sinatra::Base
 
   post '/remote_update' do
 
+	p params
+
     @user = User.first(:user => params[:user], :password => Digest::MD5.hexdigest(params[:password]))
     params.delete("user")
     params.delete("password");
     if(@user != nil)
-      
+
       project = params[:project]
       apikey = params[:apikey]
       params.delete("project")
       params.delete("apikey")
 
-      params.each do |key,value|
-        data = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => project, :name => key)
-        data.update(:value => (h value))
+      if(project == "everpicus")
+
+
+        image = ""
+        0.upto(params[:image].length/2-1) do |i|
+
+          image << [(params[:image][i*2]+params[:image][i*2+1]).hex].pack( "c")
+        end
+        
+        data = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => project, :name => "image")
+        data.update(:value => Base64.encode64(image).gsub("\n",""))
+        
+        edamurl = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => project, :name => "notestoreurl").value
+        access = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => project, :name => "oauth_token").value
+
+        Thread.new do
+
+          noteStoreTransport = Thrift::HTTPClientTransport.new(edamurl)
+          noteStoreProtocol = Thrift::BinaryProtocol.new(noteStoreTransport)
+          noteStore = Evernote::EDAM::NoteStore::NoteStore::Client.new(noteStoreProtocol)
+          notebooks = noteStore.listNotebooks(access)
+          
+          note = Evernote::EDAM::Type::Note.new
+          note.title = "New image note from flyport"
+          
+          hashFunc = Digest::MD5.new
+          
+          data = Evernote::EDAM::Type::Data.new
+          data.size = image.size
+          data.bodyHash = hashFunc.digest(image)
+          data.body = image
+          
+        
+          resource = Evernote::EDAM::Type::Resource.new
+          resource.mime = "image/jpeg"
+          resource.data = data
+          resource.attributes = Evernote::EDAM::Type::ResourceAttributes.new
+          resource.attributes.fileName = "flyportimage.jpeg"
+          
+          note.resources = [resource]
+          
+          hashHex = hashFunc.hexdigest(image)
+          note.content = <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd">
+<en-note>Here is the Evernote logo:<br/>
+<en-media type="image/png" hash="#{hashHex}"/>
+</en-note>
+EOF
+          createdNote = noteStore.createNote(access, note)
+          puts "Successfully created a new note with GUID: #{createdNote.guid}"
+        end
+      else
+        params.each do |key,value|
+          data = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => project, :name => key)
+          data.update(:value => (h value))
+        end
       end
       "OK"      
     else
@@ -208,7 +264,7 @@ class Picus < Sinatra::Base
           Datum.first(:flyport_user_apikey => session[:apikey], :flyport_project_name => "Everpicus", :name => "notestoreurl").update(:value => access_token.params['edam_noteStoreUrl'])
           adapter = DataMapper.repository(:default).adapter
           adapter.execute("UPDATE `picus`.`data` SET `value` = '#{@token}' WHERE `data`.`flyport_user_apikey` = '#{session['apikey']}' AND `data`.`flyport_project_name` = 'Everpicus' AND `data`.`name` = 'oauth_token'")
-          redirect "/flyport_project?project_name=Everpicus"
+           redirect "/flyport_project?project_name=Everpicus"
         end
       rescue StandardError => e
         e.to_s
