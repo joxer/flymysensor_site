@@ -50,10 +50,10 @@ end
 DataMapper.finalize
 
 =end
-
+=begin
 DataMapper::Logger.new(STDOUT, :debug)
 DataMapper.setup(:default, 'mysql://root:root@localhost/picus')
-
+=end
 
 class User
   include DataMapper::Resource

@@ -37,17 +37,14 @@ class Picus < Sinatra::Base
   end
 
   get '/' do
-    
     erb :index
-    
-    
   end
 
 
   post '/remote_update' do
-
-	p params
-
+    puts "REMOTE"
+    p params
+    p request
     @user = User.first(:user => params[:user], :password => Digest::MD5.hexdigest(params[:password]))
     params.delete("user")
     params.delete("password");
