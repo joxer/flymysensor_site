@@ -85,8 +85,8 @@ class Picus < Sinatra::Base
         data = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => "Everpicus", :name => "image")
         data.update(:value => Base64.encode64(image).gsub("\n",""))
         
-        edamurl = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => project, :name => "notestoreurl").value
-        access = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => project, :name => "oauth_token").value
+        edamurl = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name =>"Everpicus", :name => "notestoreurl").value
+        access = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => "Everpicus", :name => "oauth_token").value
         
         Thread.new do
           
