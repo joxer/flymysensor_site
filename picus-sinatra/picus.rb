@@ -80,6 +80,8 @@ class Picus < Sinatra::Base
           end
         end
         
+        p image
+
         data = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => project, :name => "image")
         data.update(:value => Base64.encode64(image).gsub("\n",""))
         
@@ -276,7 +278,7 @@ EOF
         with_dm_logger do
           Datum.first(:flyport_user_apikey => session[:apikey], :flyport_project_name => "Everpicus", :name => "notestoreurl").update(:value => access_token.params['edam_noteStoreUrl'])
           adapter = DataMapper.repository(:default).adapter
-          adapter.execute("UPDATE `picus`.`data` SET `value` = '#{@token}' WHERE `data`.`flyport_user_apikey` = '#{session['apikey']}' AND `data`.`flyport_project_name` = 'Everpicus' AND `data`.`name` = 'oauth_token'")
+          adapter.execute("UPDATE `data` SET `value` = '#{@token}' WHERE `data`.`flyport_user_apikey` = '#{session['apikey']}' AND `data`.`flyport_project_name` = 'Everpicus' AND `data`.`name` = 'oauth_token'")
            redirect "/flyport_project?project_name=Everpicus"
         end
       rescue StandardError => e
