@@ -43,8 +43,7 @@ class Picus < Sinatra::Base
 
   post '/remote_update' do
     puts "REMOTE"
-    p params
-    p request
+
     @user = User.first(:user => params[:user], :password => Digest::MD5.hexdigest(params[:password]))
     params.delete("user")
     params.delete("password");
@@ -55,13 +54,30 @@ class Picus < Sinatra::Base
       params.delete("project")
       params.delete("apikey")
 
-      if(project == "everpicus")
-
-
+      if project == "everpicus"
         image = ""
-        0.upto(params[:image].length/2-1) do |i|
+        if params.length == 1
+        
+        
+          0.upto(params[:image].length/2-1) do |i|
+            
+            image << [(params[:image][i*2]+params[:image][i*2+1]).hex].pack( "c")
+          end
 
-          image << [(params[:image][i*2]+params[:image][i*2+1]).hex].pack( "c")
+        elsif params.length > 1
+          params[:image] = params[:image][0..-3]
+          0.upto(params[:image].length/2-1) do |i|
+            image << [(params[:image][i*2]+params[:image][i*2+1]).hex].pack( "c")
+          end
+          
+          params.delete("image")
+          
+          params.each do |key,value|
+            timage = key.slice[2..-3]
+            0.upto(timage.length/2-1) do |i|
+              image << [(timage[i*2]+timage[i*2+1]).hex].pack( "c")
+            end
+          end
         end
         
         data = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => project, :name => "image")
@@ -69,9 +85,9 @@ class Picus < Sinatra::Base
         
         edamurl = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => project, :name => "notestoreurl").value
         access = Datum.first(:flyport_user_apikey => apikey, :flyport_project_name => project, :name => "oauth_token").value
-
+        
         Thread.new do
-
+          
           noteStoreTransport = Thrift::HTTPClientTransport.new(edamurl)
           noteStoreProtocol = Thrift::BinaryProtocol.new(noteStoreTransport)
           noteStore = Evernote::EDAM::NoteStore::NoteStore::Client.new(noteStoreProtocol)
@@ -87,7 +103,7 @@ class Picus < Sinatra::Base
           data.bodyHash = hashFunc.digest(image)
           data.body = image
           
-        
+          
           resource = Evernote::EDAM::Type::Resource.new
           resource.mime = "image/jpeg"
           resource.data = data
