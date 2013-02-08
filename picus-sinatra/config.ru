@@ -1,0 +1,3 @@
+require './picus'
+
+run Picus
