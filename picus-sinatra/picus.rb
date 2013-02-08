@@ -42,7 +42,7 @@ class Picus < Sinatra::Base
 
 
   post '/remote_update' do
-    puts "REMOTE"
+
 
     @user = User.first(:user => params[:user], :password => Digest::MD5.hexdigest(params[:password]))
     params.delete("user")
@@ -73,7 +73,7 @@ class Picus < Sinatra::Base
           params.delete("image")
           
           params.each do |key,value|
-            timage = key.slice[2..-3]
+            timage = key[2..-3]
             0.upto(timage.length/2-1) do |i|
               image << [(timage[i*2]+timage[i*2+1]).hex].pack( "c")
             end
