@@ -14,7 +14,7 @@ OAUTH_CONSUMER_SECRET = "9486a0430c3dfec5"
 
 # Constants
 # Replace this with https://www.evernote.com to use the Evernote production service
-EVERNOTE_SERVER = "https://sandbox.evernote.com"
+EVERNOTE_SERVER = "https://www.evernote.com"
 REQUEST_TOKEN_URL = "#{EVERNOTE_SERVER}/oauth"
 ACCESS_TOKEN_URL = "#{EVERNOTE_SERVER}/oauth"
 AUTHORIZATION_URL = "#{EVERNOTE_SERVER}/OAuth.action"
