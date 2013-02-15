@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 
+=begin
+
+
+"Beware the Jabberwock, my son!
+The jaws that bite, the claws that catch!
+Beware the Jubjub bird, and shun
+The frumious Bandersnatch!"
+
+
+=end
+
 require 'sinatra/base'
 require 'sinatra/assetpack'
 require 'data_mapper'
@@ -56,18 +67,12 @@ class Picus < Sinatra::Base
       if project == "everpicus"
         image = ""
         if params.length == 1
-        
-        
           0.upto(params[:image].length/2-1) do |i|
-            
-            image << [(params[:image][i*2]+params[:image][i*2+1]).hex].pack( "c")
-          end
-
+            image << [(params[:image][i*2]+params[:image][i*2+1]).hex].pack( "c")          end
         elsif params.length > 1
           params[:image] = params[:image][0..-3]
           0.upto(params[:image].length/2-1) do |i|
-            image << [(params[:image][i*2]+params[:image][i*2+1]).hex].pack( "c")
-          end
+            image << [(params[:image][i*2]+params[:image][i*2+1]).hex].pack( "c")          end
           
           params.delete("image")
           
@@ -204,7 +209,6 @@ EOF
   end
 
   get '/help' do
-
     erb :help
   end
 
@@ -229,7 +233,6 @@ EOF
 
   post '/user/register_account' do
     begin
-
       if(User.all(:user => params[:user]) != [])
         @error = "User is already registered"
         erb :register
@@ -237,7 +240,6 @@ EOF
         if(!validate_email(params[:email]))
            @error = "Please insert a valid email"
            erb :register
-
          else
            User.create(:user => params[:user],:password=> Digest::MD5.hexdigest(params[:passwd]), :email => params[:email], :apikey => Digest::MD5.hexdigest(params[:passwd]).slice(0,25))
            @notice = "do your first login"
@@ -250,7 +252,7 @@ EOF
   end
   
   get '/evernote/authorize' do
-    
+
     callback_url = request.url.chomp("authorize").concat("callback")
     
     begin
@@ -284,7 +286,15 @@ EOF
     end
   end
 end
+
 if __FILE__ == $0
+
+  unless File.exists?("database.db")
+    
+    puts "Database file created"
+
+    DataMapper.auto_migrate!
+  end
   Picus.run!
 end
 
