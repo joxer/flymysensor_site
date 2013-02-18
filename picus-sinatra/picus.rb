@@ -122,7 +122,7 @@ class Picus < Sinatra::Base
           note.content = <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd">
-<en-note>Here is the Evernote logo:<br/>
+<en-note>Here is the Everpicus Image:<br/>
 <en-media type="image/png" hash="#{hashHex}"/>
 </en-note>
 EOF
