@@ -1,5 +1,5 @@
 This repository is the flymysensor website for openpicus project.
-The project is released under GPL v2.
+The project is released under GPL v3.
 
 It's build with tinymvc, a simple php framework that offers an immediate mvc pattern and a simple pdo interface.
 
