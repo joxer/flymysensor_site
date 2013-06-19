@@ -62,14 +62,13 @@ class User
   property :password, String
   property :apikey, String, :key => true
   
-  has n, :flyports#, :child_key => [:apikey]
+  has n, :flyports
 end
 
 class Flyport
   include DataMapper::Resource
 
-   belongs_to :user,:key => true#, :child_key => [:user_apikey]
-#  property :apikey, String, :key => true
+  belongs_to :user, :key => true
   property :project_name, String, :key => true
   
   has n, :data, :parent_key => [:project_name, :user_apikey]
@@ -77,9 +76,7 @@ end
 
 class Datum
   include DataMapper::Resource
- belongs_to :flyport, :parent_key => [:project_name, :user_apikey]#, :parent_key =>[:apikey], :child_key => [:apikey, :project_name]
-#  property :apikey, String, :key  => true
-#  property :project_name, String, :key => true
+ belongs_to :flyport, :parent_key => [:project_name, :user_apikey]
   property :name, String,  :key => true
   property :value, Text
   property :last_access, Date
