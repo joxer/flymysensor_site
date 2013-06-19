@@ -67,17 +67,18 @@ end
 
 class Flyport
   include DataMapper::Resource
-
+  
   belongs_to :user, :key => true
   property :project_name, String, :key => true
-  
+  property :id, Serial, :key => true
   has n, :data, :parent_key => [:project_name, :user_apikey]
 end
 
 class Datum
   include DataMapper::Resource
- belongs_to :flyport, :parent_key => [:project_name, :user_apikey]
+  belongs_to :flyport, :parent_key => [:project_name, :user_apikey]
   property :name, String,  :key => true
+  property :id, Serial, :key => true
   property :value, Text
   property :last_access, Date
 end
